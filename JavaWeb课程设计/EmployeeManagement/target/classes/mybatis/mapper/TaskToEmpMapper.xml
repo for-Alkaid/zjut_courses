@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjut.qll.mapper.TaskToEmpMapper">
+
+    <select id="queryAllTaskToEmp" resultType="TaskToEmp">
+        select * from employeemanage.tasktoemp
+    </select>
+
+
+    <select id="queryTaskToEmpByEmpId" resultMap="Task_Emp">
+        select * from employeemanage.tasktoemp
+        where tasktoemp.emp_id = #{emp_id}
+#         and tasktoemp.emp_id = employee.emp_id
+    </select>
+    <resultMap id="Task_Emp" type="TaskToEmp">
+        <result property="startTime" column="startTime" />
+        <result property="endTime" column="endTime" />
+        <result property="isAccomplish" column="isAccomplish" />
+        <association property="employee" column="emp_id" javaType="Employee" select="getEmp"/>
+        <association property="task" column="task_id" javaType="Task" select="getTask" />
+    </resultMap>
+    <select id="getEmp" resultType="Employee">
+        select * from employeemanage.employee where emp_id = #{emp_id}
+    </select>
+    <select id="getTask" resultMap="TaskProject">
+        select * from employeemanage.task where t_id = #{t_id}
+    </select>
+    <resultMap id="TaskProject" type="Task">
+        <result property="t_id" column="t_id" />
+        <result property="t_name" column="t_name" />
+        <association property="project" column="p_id" javaType="Project" select="getProject"/>
+    </resultMap>
+    <select id="getProject" resultType="Project">
+        select * from employeemanage.project where p_id = #{p_id}
+    </select>
+
+
+
+</mapper>

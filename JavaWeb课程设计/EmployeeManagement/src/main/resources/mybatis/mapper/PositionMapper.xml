@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjut.qll.mapper.PositionMapper">
+
+    <!--查询所有职位-->
+    <select id="queryAllPosition" resultType="Position">
+        select * from employeemanage.position
+    </select>
+
+    <!--通过id查询职位-->
+    <select id="queryPositionById" resultType="Position">
+        select * from employeemanage.position where position_id = #{position_id}
+    </select>
+
+</mapper>

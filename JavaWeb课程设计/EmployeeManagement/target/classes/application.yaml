@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/employeemanage?useSSL=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: root
+# 关闭模板引擎缓存
+  thymeleaf:
+    cache: false
+    encoding: utf-8
+#  resources:
+#    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+mybatis:
+  type-aliases-package: com.zjut.qll.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
