@@ -1,7 +1,5 @@
 package com.zjut.qll.controller;
 
-
-
 import com.zjut.qll.mapper.DepartmentMapper;
 import com.zjut.qll.mapper.EmployeeMapper;
 import com.zjut.qll.mapper.PositionMapper;
@@ -37,17 +35,24 @@ public class EmployeeController {
                         Model model,
                         HttpSession session) throws NoSuchAlgorithmException {
         Employee employee = employeeMapper.queryEmployeeById(id);
-        session.setAttribute("emp",employee);
         if(employee == null ){
             model.addAttribute("msg","用户名不存在！");
             return "login";
         }
+
         //将密码用MD5验证
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!StringUtils.isEmpty(password) && password.equals(employee.getPassword())) {
+            session.setAttribute("emp",employee);
+            if(id.equals("0000")){
+                return "redirect:/admin/index";
+            }
 //            model.addAttribute("empName",employee.getEmp_name());
-            session.setAttribute("empPosition",positionMapper.queryPositionById(employee.getPosition_id()).getPosition_name());
-            return "redirect:/index";
+            String positionName = employee.getPosition().getPosition_name();
+            session.setAttribute("empPosition",positionName);
+
+            if(positionName.equals("common")) return "redirect:/user/index";
+            else return "redirect:/advance/index";
         } else{
             model.addAttribute("msg","用户名或密码错误！");
             return "login";

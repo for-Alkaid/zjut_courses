@@ -40,10 +40,10 @@
                     <input type="password" class="form-control" placeholder="Password" name="password" required="">
                 </div>
 
-                <select class="form-control m-b" name="departmentId">
+                <select class="form-control m-b" name="department.id">
                     <option th:each="department:${departments}" th:value="${department.getId()}" th:text="${department.getName()}"></option>
                 </select>
-                <select class="form-control m-b" name="positionId">
+                <select class="form-control m-b" name="position.position_id">
                     <option th:each="position:${positions}" th:value="${position.getPosition_id()}" th:text="${position.getPosition_name()}"></option>
                 </select>
 

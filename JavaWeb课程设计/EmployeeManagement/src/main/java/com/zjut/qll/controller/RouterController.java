@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RouterController {
 
-    @RequestMapping("/index")
-    public String backIndex(){
-        //TODO
-        System.out.println("-");
-        return "index";
-    }
+//    @RequestMapping("/user/index")
+//    public String backIndex(){
+//        //TODO
+//        System.out.println("-");
+//        return "index";
+//    }
 
 
 

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -19,4 +20,8 @@ public interface EmployeeMapper {
     List<Employee> queryEmployees();
 
     int insertEmployee(Employee employee);
+
+    int updateEmployee(Map<String,Object> employee);
+
+    int deleteEmployee(Employee employee);
 }

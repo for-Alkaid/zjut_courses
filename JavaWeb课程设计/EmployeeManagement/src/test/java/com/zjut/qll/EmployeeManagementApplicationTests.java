@@ -1,6 +1,8 @@
 package com.zjut.qll;
 
+import com.zjut.qll.mapper.EmployeeMapper;
 import com.zjut.qll.mapper.TaskToEmpMapper;
+import com.zjut.qll.pojo.Employee;
 import com.zjut.qll.pojo.TaskToEmp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +19,15 @@ class EmployeeManagementApplicationTests {
     DataSource dataSource;
     @Autowired
     TaskToEmpMapper taskToEmpMapper;
+    @Autowired
+    EmployeeMapper employeeMapper;
 
     @Test
     void contextLoads() throws SQLException {
 
-        List<TaskToEmp> taskToEmps = taskToEmpMapper.queryTaskToEmpByEmpId("0001");
-        for (TaskToEmp taskToEmp : taskToEmps) {
-            System.out.println(taskToEmp);
+        List<Employee> employees = employeeMapper.queryEmployees();
+        for (Employee employee : employees) {
+            System.out.println(employee);
         }
     }
 

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+
+    <title>index</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.css}">
+
+    <!-- Toastr style -->
+    <link rel="stylesheet" th:href="@{/css/plugins/toastr/toastr.min.css}">
+
+    <!-- Gritter -->
+    <link rel="stylesheet" th:href="@{/js/plugins/gritter/jquery.gritter.css}">
+
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <span>
+                            <img alt="image" class="img-circle" th:src="@{/img/profile_small.jpg}" />
+                        </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" >
+                            <span class="text-muted text-xs block">[[${session.emp.getEmp_name()}]]<b class="caret"></b></span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li class="divider"></li>
+                            <li><a th:href="@{/user/toLogin}">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        Q+
+                    </div>
+                </li>
+                <li class="active">
+                    <!--<a th:href="@{/index}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>-->
+                    <a><i class="fa fa-pencil-square-o"></i> <span class="nav-label">management</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="gray-bg dashbard-1" id="page-wrapper">
+        <!--头部公共部分引入-->
+        <div th:replace="~{commons/commons::topbar}"></div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="product_name">Project Name</label>
+                                    <input type="text" id="product_name" name="product_name" value="" placeholder="Project Name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label" for="price">Name</label>
+                                    <input type="text" id="price" name="price" value="" placeholder="Name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label" for="quantity">Task</label>
+                                    <input type="text" id="quantity" name="quantity" value="" placeholder="Company" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="status">Status</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="1" selected="">Completed</option>
+                                        <option value="0">Pending</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <td><strong>#</strong></td>
+                                    <td><strong>员工号</strong></td>
+                                    <td><strong>员工姓名</strong></td>
+                                    <td><strong>部门</strong></td>
+                                    <td><strong>职位</strong></td>
+                                    <td><strong>操作</strong></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="emp,empState:${emps}">
+                                    <td th:text="${empState.count}"></td>
+                                    <td th:text="${emp.getEmp_id()}"></td>
+                                    <td th:text="${emp.getEmp_name()}"></td>
+                                    <td th:text="${emp.getDepartment().getName()}"></td>
+                                    <td th:text="${emp.getPosition().getPosition_name()}"></td>
+                                    <td><button type="button" th:onclick="openUpdateModal(this)" class="btn btn-warning" data-toggle="modal" data-target="#updateModal">修改</button>&nbsp;
+                                        <button type="button" th:onclick="openDeleteModal(this)" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">删除</button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--模态框 updateModal-->
+                            <div class="modal inmodal" id="updateModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated fadeIn">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <i class="fa fa-pencil-square-o modal-icon"></i>
+                                            <h4 class="modal-title">UPDATE</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form role="form" th:action="@{/admin/updateEmployee}" method="post">
+                                                <div class="form-group">
+                                                    <input id="hiddenEmpId" name="emp_id" type="hidden" />
+                                                    员工Id：<input id="empId" class="form-control" type="text" disabled="disabled"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    员工姓名：<input id="empName" name="emp_name" class="form-control" type="text" />
+                                                </div>
+                                                <div class="form-group">
+                                                    员工部门：<select class="form-control m-b" name="department.id" >
+                                                    <option id="empDept" th:each="department:${departments}" th:value="${department.getId()}" th:text="${department.getName()}"></option>
+                                                </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    员工职位：<select class="form-control m-b" name="position.position_id">
+                                                    <option id="empPosition" th:each="position:${positions}" th:value="${position.getPosition_id()}" th:text="${position.getPosition_name()}"></option>
+                                                </select>
+                                                </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary" >update</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                function openUpdateModal(obj) {
+
+                                    var $td = $(obj).parents('tr').children('td');
+                                    var empId = $td.eq(1).text();
+                                    var empName = $td.eq(2).text();
+
+                                    $("#empId").val(empId);
+                                    $("#hiddenEmpId").val(empId);
+                                    $("#empName").val(empName);
+                                }
+                            </script>
+                            <!--模态框 deleteModal-->
+                            <div class="modal inmodal" id="deleteModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated fadeIn">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <i class="fa fa-trash-o modal-icon"></i>
+                                            <h4 class="modal-title" style="color: red">DELETE</h4>
+                                        </div>
+                                        <form role="form" th:action="@{/admin/deleteEmployee}" method="post">
+                                            <div class="modal-body" >
+                                                <h2><strong>确定要删除吗？</strong></h2>
+                                                <div class="form-group">
+                                                    <input id="deleteEmpId" type="hidden" name="emp_id"/>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-danger">delete</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                function openDeleteModal(obj) {
+                                    var $td = $(obj).parents('tr').children('td');
+                                    var empId = $td.eq(1).text().trim();
+                                    $("#deleteEmpId").val(empId);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--底部引入-->
+    <div th:replace="~{commons/commons::footer}"></div>
+
+</div>
+</div>
+
+</div>
+
+
+</div>
+
+<!-- Mainly scripts -->
+<script th:src="@{/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+<!-- Flot -->
+<script th:src="@{/js/plugins/flot/jquery.flot.js}"></script>
+<script th:src="@{/js/plugins/flot/jquery.flot.tooltip.min.js}"></script>
+<script th:src="@{/js/plugins/flot/jquery.flot.spline.js}"></script>
+<script th:src="@{/js/plugins/flot/jquery.flot.resize.js}"></script>
+<script th:src="@{/js/plugins/flot/jquery.flot.pie.js}"></script>
+
+<!-- Peity -->
+<script th:src="@{/js/plugins/peity/jquery.peity.min.js}"></script>
+<script th:src="@{/js/demo/peity-demo.js}"></script>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/js/inspinia.js}"></script>
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+
+<!-- jQuery UI -->
+<script th:src="@{/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+
+<!-- GITTER -->
+<script th:src="@{/js/plugins/gritter/jquery.gritter.min.js}"></script>
+
+<!-- Sparkline -->
+<script th:src="@{/js/plugins/sparkline/jquery.sparkline.min.js}"></script>
+
+<!-- Sparkline demo data  -->
+<script th:src="@{/js/demo/sparkline-demo.js}"></script>
+
+<!-- ChartJS-->
+<script th:src="@{/js/plugins/chartJs/Chart.min.js}"></script>
+
+<!-- Toastr -->
+<script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+
+
+</body>
+</html>

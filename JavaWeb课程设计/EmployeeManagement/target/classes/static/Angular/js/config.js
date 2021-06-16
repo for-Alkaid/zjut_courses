@@ -494,7 +494,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         })
         .state('forms.file_upload', {
             url: "/file_upload",
-            templateUrl: "views/form_file_upload.html",
+            templateUrl: "views/documents.html",
             data: { pageTitle: 'File upload' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {

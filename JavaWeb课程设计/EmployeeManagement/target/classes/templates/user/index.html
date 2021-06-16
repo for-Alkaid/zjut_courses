@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>employee | index</title>
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link th:href="@{/js/plugins/gritter/jquery.gritter.css}" rel="stylesheet">
+
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <!--侧边公共部分引入-->
+        <div th:replace="~{commons/commons::siderbar}"></div>
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <!--头部公共部分引入-->
+            <div th:replace="~{commons/commons::topbar}"></div>
+
+                <div class="row  border-bottom white-bg dashboard-header">
+
+                    <div class="col-sm-6">
+                        <h2>Welcome [[${session.emp.getEmp_name()}]]</h2>
+                        <small>You have 42 messages and 6 notifications.</small>
+                        <ul class="list-group clear-list m-t" >
+                            <li class="list-group-item fist-item">
+                                <span class="pull-right">
+                                    09:00 pm
+                                </span>
+                                <span class="label label-success">1</span> Please contact me
+                            </li>
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    10:16 am
+                                </span>
+                                <span class="label label-info">2</span> Sign a contract
+                            </li>
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    08:22 pm
+                                </span>
+                                <span class="label label-primary">3</span> Open new shop
+                            </li>
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    11:06 pm
+                                </span>
+                                <span class="label label-default">4</span> Call back to Sylvia
+                            </li>
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    12:00 am
+                                </span>
+                                <span class="label label-primary">5</span> Write a letter to Sandra
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content">
+                        <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Alpha project</h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="index.html#">
+                                            <i class="fa fa-wrench"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-user">
+                                            <li><a href="index.html#">Config option 1</a>
+                                            </li>
+                                            <li><a href="index.html#">Config option 2</a>
+                                            </li>
+                                        </ul>
+                                        <a class="close-link">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content ibox-heading">
+                                    <h3>You have meeting today!</h3>
+                                    <small><i class="fa fa-map-marker"></i> Meeting is on 6:00am. Check your schedule to see detail.</small>
+                                </div>
+                                <div class="ibox-content inspinia-timeline">
+
+                                    <div class="timeline-item">
+                                        <div class="row">
+                                            <div class="col-xs-3 date">
+                                                <i class="fa fa-briefcase"></i>
+                                                6:00 am
+                                                <br/>
+                                                <small class="text-navy">2 hour ago</small>
+                                            </div>
+                                            <div class="col-xs-7 content no-top-border">
+                                                <p class="m-b-xs"><strong>Meeting</strong></p>
+
+                                                <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the
+                                                    sale.</p>
+
+                                                <p><span data-diameter="40" class="updating-chart">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,4,7,3,2,9,8,7,4,5,1,2,9,5,4,7,2,7,7,3,5,2</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="row">
+                                            <div class="col-xs-3 date">
+                                                <i class="fa fa-file-text"></i>
+                                                7:00 am
+                                                <br/>
+                                                <small class="text-navy">3 hour ago</small>
+                                            </div>
+                                            <div class="col-xs-7 content">
+                                                <p class="m-b-xs"><strong>Send documents to Mike</strong></p>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="row">
+                                            <div class="col-xs-3 date">
+                                                <i class="fa fa-coffee"></i>
+                                                8:00 am
+                                                <br/>
+                                            </div>
+                                            <div class="col-xs-7 content">
+                                                <p class="m-b-xs"><strong>Coffee Break</strong></p>
+                                                <p>
+                                                    Go to shop and find some products.
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="row">
+                                            <div class="col-xs-3 date">
+                                                <i class="fa fa-phone"></i>
+                                                11:00 am
+                                                <br/>
+                                                <small class="text-navy">21 hour ago</small>
+                                            </div>
+                                            <div class="col-xs-7 content">
+                                                <p class="m-b-xs"><strong>Phone with Jeronimo</strong></p>
+                                                <p>
+                                                    Lorem Ipsum has been the industry's standard dummy text ever since.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="row">
+                                            <div class="col-xs-3 date">
+                                                <i class="fa fa-user-md"></i>
+                                                09:00 pm
+                                                <br/>
+                                                <small>21 hour ago</small>
+                                            </div>
+                                            <div class="col-xs-7 content">
+                                                <p class="m-b-xs"><strong>Go to the doctor dr Smith</strong></p>
+                                                <p>
+                                                    Find some issue and go to doctor.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="row">
+                                            <div class="col-xs-3 date">
+                                                <i class="fa fa-comments"></i>
+                                                12:50 pm
+                                                <br/>
+                                                <small class="text-navy">48 hour ago</small>
+                                            </div>
+                                            <div class="col-xs-7 content">
+                                                <p class="m-b-xs"><strong>Chat with Monica and Sandra</strong></p>
+                                                <p>
+                                                    Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+                </div>
+
+                <!--底部引入-->
+                <div th:replace="~{commons/commons::footer}"></div>
+
+            </div>
+        </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-2.1.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Flot -->
+    <script th:src="@{/js/plugins/flot/jquery.flot.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.tooltip.min.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.spline.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.resize.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.pie.js}"></script>
+
+    <!-- Peity -->
+    <script th:src="@{/js/plugins/peity/jquery.peity.min.js}"></script>
+    <script th:src="@{/js/demo/peity-demo.js}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script th:src="@{/js/inspinia.js}"></script>
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+
+    <!-- jQuery UI -->
+    <script th:src="@{/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+
+    <!-- GITTER -->
+    <script th:src="@{/js/plugins/gritter/jquery.gritter.min.js}"></script>
+
+    <!-- Sparkline -->
+    <script th:src="@{/js/plugins/sparkline/jquery.sparkline.min.js}"></script>
+
+    <!-- Sparkline demo data  -->
+    <script th:src="@{/js/demo/sparkline-demo.js}"></script>
+
+    <!-- ChartJS-->
+    <script th:src="@{/js/plugins/chartJs/Chart.min.js}"></script>
+
+    <!-- Toastr -->
+    <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
+
+            }, 1300);
+
+
+            var data1 = [
+                [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,30],[11,10],[12,13],[13,4],[14,3],[15,3],[16,6]
+            ];
+            var data2 = [
+                [0,1],[1,0],[2,2],[3,0],[4,1],[5,3],[6,1],[7,5],[8,2],[9,3],[10,2],[11,1],[12,0],[13,2],[14,8],[15,0],[16,0]
+            ];
+            $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
+                data1, data2
+            ],
+                    {
+                        series: {
+                            lines: {
+                                show: false,
+                                fill: true
+                            },
+                            splines: {
+                                show: true,
+                                tension: 0.4,
+                                lineWidth: 1,
+                                fill: 0.4
+                            },
+                            points: {
+                                radius: 0,
+                                show: true
+                            },
+                            shadowSize: 2
+                        },
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            tickColor: "#d5d5d5",
+                            borderWidth: 1,
+                            color: '#d5d5d5'
+                        },
+                        colors: ["#1ab394", "#1C84C6"],
+                        xaxis:{
+                        },
+                        yaxis: {
+                            ticks: 4
+                        },
+                        tooltip: false
+                    }
+            );
+
+            var doughnutData = [
+                {
+                    value: 300,
+                    color: "#a3e1d4",
+                    highlight: "#1ab394",
+                    label: "App"
+                },
+                {
+                    value: 50,
+                    color: "#dedede",
+                    highlight: "#1ab394",
+                    label: "Software"
+                },
+                {
+                    value: 100,
+                    color: "#A4CEE8",
+                    highlight: "#1ab394",
+                    label: "Laptop"
+                }
+            ];
+
+            var doughnutOptions = {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                percentageInnerCutout: 45, // This is 0 for Pie charts
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false
+            };
+
+            var ctx = document.getElementById("doughnutChart").getContext("2d");
+            var DoughnutChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
+
+            var polarData = [
+                {
+                    value: 300,
+                    color: "#a3e1d4",
+                    highlight: "#1ab394",
+                    label: "App"
+                },
+                {
+                    value: 140,
+                    color: "#dedede",
+                    highlight: "#1ab394",
+                    label: "Software"
+                },
+                {
+                    value: 200,
+                    color: "#A4CEE8",
+                    highlight: "#1ab394",
+                    label: "Laptop"
+                }
+            ];
+
+            var polarOptions = {
+                scaleShowLabelBackdrop: true,
+                scaleBackdropColor: "rgba(255,255,255,0.75)",
+                scaleBeginAtZero: true,
+                scaleBackdropPaddingY: 1,
+                scaleBackdropPaddingX: 1,
+                scaleShowLine: true,
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false
+            };
+
+
+        });
+    </script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-4625583-2', 'webapplayers.com');
+        ga('send', 'pageview');
+
+    </script>
+</body>
+</html>

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Dashboard v.5</title>
+    <title>Employee | Workbench</title>
 
     <!--引入阿里图标库-->
     <link rel="preload" href="//at.alicdn.com/t/font_2609633_0qshoep7y7f.woff2" as="font" type="font/woff2" crossorigin="anonymous">
@@ -22,7 +22,7 @@
 <body>
     <div id="wrapper">
         <!--侧边-->
-        <div th:replace="~{commons/commons::siderbar}" ></div>
+        <div th:replace="~{commons/commons::siderbar(active='workbench.html')}" ></div>
 
         <div id="page-wrapper" class="gray-bg">
         <!--头部-->
@@ -69,29 +69,30 @@
 
                                     <div class="table-responsive">
                                         <table class="table table-striped">
-
+                                            <thead>
+                                                <tr>
+                                                    <td><strong>序号</strong></td>
+                                                    <td><strong>任务名称</strong></td>
+                                                    <td><strong>项目名称</strong></td>
+                                                    <td><strong>起始时间</strong></td>
+                                                    <td><strong>截止时间</strong></td>
+                                                    <td><strong>是否完成</strong></td>
+                                                </tr>
+                                            </thead>
                                             <tbody>
-                                            <tr>
-                                                <td><strong>序号</strong></td>
-                                                <td><strong>任务名称</strong></td>
-                                                <td><strong>项目名称</strong></td>
-                                                <td><strong>起始时间</strong></td>
-                                                <td><strong>截止时间</strong></td>
-                                                <td><strong>是否完成</strong></td>
-                                            </tr>
+
                                             <tr th:each="task,taskState:${tasks}">
                                                 <td th:text="${taskState.count}"></td>
                                                 <td th:text="${task.getTask().getT_name()}"></td>
                                                 <td th:text="${task.getTask().getProject().getP_name()}"></td>
                                                 <td th:text="${#dates.format(task.getStartTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
                                                 <td th:text="${#dates.format(task.getEndTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
-                                                <td th:if="${task.getIsAccomplish()}"><a th:href="@{/index}"><i class="fa fa-check text-navy"></i></a></td>
-                                                <td th:unless="${task.getIsAccomplish()}"><a th:href="@{/index}"><i class="fa fa-times text-navy"></i></a></td>
+                                                <td th:if="${task.getIsAccomplish()}"><a th:href="@{/user/task}"><i class="fa fa-check text-navy"></i></a></td>
+                                                <td th:unless="${task.getIsAccomplish()}"><a th:href="@{/user/task}"><i class="fa fa-times text-navy"></i></a></td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -228,26 +229,26 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script th:src="@{/js/jquery-2.1.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
     <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.spline.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
-    <script src="js/plugins/flot/jquery.flot.symbol.js"></script>
-    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.tooltip.min.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.spline.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.resize.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.pie.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.symbol.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.time.js}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
+    <script th:src="@{/js/inspinia.js}"></script>
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
 
     <!-- Sparkline -->
-    <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script th:src="@{/js/plugins/sparkline/jquery.sparkline.min.js}"></script>
 
 
     <script>

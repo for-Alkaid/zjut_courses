@@ -3,22 +3,48 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zjut.qll.mapper.EmployeeMapper">
-    <select id="queryEmployeeByName" resultType="Employee">
+    <select id="queryEmployeeByName" resultMap="EmployeePlus">
         select * from employeemanage.employee where emp_name = #{emp_name}
     </select>
-    <select id="queryEmployeeById" resultType="Employee">
+    <select id="queryEmployeeById" resultMap="EmployeePlus">
         select * from employeemanage.employee where emp_id = #{emp_id}
     </select>
-
-    <select id="queryEmployees" resultType="Employee">
+    <select id="queryEmployees" resultMap="EmployeePlus">
         select * from employeemanage.employee
     </select>
+    <resultMap id="EmployeePlus" type="Employee">
+        <result property="emp_id" column="emp_id" />
+        <result property="emp_name" column="emp_name" />
+        <result property="password" column="password" />
+        <association property="position" column="position_id" javaType="Position" select="getProject" />
+        <association property="department" column="dept_id" javaType="Department" select="getDepartment" />
+    </resultMap>
+    <select id="getProject" resultType="Position">
+        select * from employeemanage.position where position_id = #{position_id}
+    </select>
+    <select id="getDepartment" resultType="Department">
+        select * from employeemanage.department where id = #{dept_id}
+    </select>
 
+    <!--插入员工-->
     <insert id="insertEmployee" parameterType="Employee">
         insert into employeemanage.employee (emp_id, dept_id, position_id, emp_name, password)
         values (#{emp_id},#{dept_id},#{position_id},#{emp_name},#{password})
     </insert>
 
+    <!--更新-->
+    <update id="updateEmployee" parameterType="map">
+        update employeemanage.employee
+        set emp_name = #{emp_name} , dept_id = #{dept_id},
+            position_id = #{position_id}
+        where emp_id = #{emp_id}
+    </update>
+
+
+
+    <delete id="deleteEmployee" parameterType="Employee">
+        delete from employeemanage.employee where emp_id = #{emp_id}
+    </delete>
 
 
 </mapper>
