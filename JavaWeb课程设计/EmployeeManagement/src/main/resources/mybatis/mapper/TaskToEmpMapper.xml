@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zjut.qll.mapper.TaskToEmpMapper">
 
-    <select id="queryAllTaskToEmp" resultType="TaskToEmp">
+
+    <select id="queryAllTaskToEmp" resultMap="Task_Emp">
         select * from employeemanage.tasktoemp
     </select>
 
@@ -21,8 +22,14 @@
         <association property="employee" column="emp_id" javaType="Employee" select="getEmp"/>
         <association property="task" column="task_id" javaType="Task" select="getTask" />
     </resultMap>
-    <select id="getEmp" resultType="Employee">
+    <select id="getEmp" resultMap="EmployeeDepartment">
         select * from employeemanage.employee where emp_id = #{emp_id}
+    </select>
+    <resultMap id="EmployeeDepartment" type="Employee">
+        <association property="department" column="dept_id" javaType="Department" select="getDepartment" />
+    </resultMap>
+    <select id="getDepartment" resultType="Department">
+        select * from employeemanage.department where id = #{dept_id}
     </select>
     <select id="getTask" resultMap="TaskProject">
         select * from employeemanage.task where t_id = #{t_id}
@@ -35,5 +42,10 @@
     <select id="getProject" resultType="Project">
         select * from employeemanage.project where p_id = #{p_id}
     </select>
+
+    <insert id="insertTaskToEmp" parameterType="map">
+        insert into employeemanage.tasktoemp (emp_id, task_id,startTime, endTime, details)
+        values (#{emp_id},#{task_id},#{startTime},#{endTime},#{details})
+    </insert>
 
 </mapper>

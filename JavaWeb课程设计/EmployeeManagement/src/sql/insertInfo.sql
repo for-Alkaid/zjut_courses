@@ -1,3 +1,8 @@
+
+truncate table employeemanage.tasktoemp;
+truncate table employeemanage.task;
+truncate table employeemanage.employee;
+
 insert into employeemanage.department (name) value ('市场部');
 insert into employeemanage.department (name) value ('运营部');
 insert into employeemanage.department (name) value ('研发部');
@@ -26,21 +31,23 @@ insert into employeemanage.position (position_name) VALUES ('generalManager');
 
 
 
-insert into employeemanage.task(t_name, p_id, details) VALUES ('页面美化',1,'1、运用bootstrap美化界面。2、保证页面流畅稳定。');
-insert into employeemanage.task(t_name, p_id, details) VALUES ('后端研发',1,'1、实现并发控制，负载均衡。2、提升系统的流畅性和稳固性。');
-insert into employeemanage.task(t_name, p_id, details) VALUES ('测试',1,'1、运用黑盒白盒测试对系统进行检测。2、撰写测试报告。');
-insert into employeemanage.task(t_name, p_id, details) VALUES ('页面美化',2,'1、运用bootstrap美化界面。2、保证页面流畅稳定。');
-insert into employeemanage.task(t_name, p_id, details) VALUES ('后端研发',2,'1、实现并发控制，负载均衡。2、提升系统的流畅性和稳固性。');
-insert into employeemanage.task(t_name, p_id, details) VALUES ('测试',2,'1、运用黑盒白盒测试对系统进行检测。2、撰写测试报告。');
-insert into employeemanage.task(t_name, p_id, details) VALUES ('页面美化',3,'1、运用bootstrap美化界面。2、保证页面流畅稳定。');
-insert into employeemanage.task(t_name, p_id, details) VALUES ('后端研发',3,'1、实现并发控制，负载均衡。2、提升系统的流畅性和稳固性。');
-insert into employeemanage.task(t_name, p_id, details) VALUES ('测试',3,'1、运用黑盒白盒测试对系统进行检测。2、撰写测试报告。');
+insert into employeemanage.task(t_name, p_id) VALUES ('页面美化',1);
+insert into employeemanage.task(t_name, p_id) VALUES ('后端研发',1);
+insert into employeemanage.task(t_name, p_id) VALUES ('测试',1);
+insert into employeemanage.task(t_name, p_id) VALUES ('页面美化',2);
+insert into employeemanage.task(t_name, p_id) VALUES ('后端研发',2);
+insert into employeemanage.task(t_name, p_id) VALUES ('测试',2);
+insert into employeemanage.task(t_name, p_id) VALUES ('页面美化',3);
+insert into employeemanage.task(t_name, p_id) VALUES ('后端研发',3);
+insert into employeemanage.task(t_name, p_id) VALUES ('测试',3);
 
 
-insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, isAccomplish) VALUES ('0001',1,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),0);
-insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, isAccomplish) VALUES ('0001',2,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),1);
-insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, isAccomplish) VALUES ('0001',3,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),0);
-insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, isAccomplish) VALUES ('0001',4,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),0);
-insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, isAccomplish) VALUES ('0002',5,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),1);
-insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, isAccomplish) VALUES ('0002',6,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),0);
-insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, isAccomplish) VALUES ('0002',7,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),0);
+insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, details, isAccomplish) VALUES ('0001',1,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),'1、运用bootstrap美化界面。2、保证页面流畅稳定。',0);
+insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, details, isAccomplish) VALUES ('0001',2,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),'1、实现并发控制，负载均衡。2、提升系统的流畅性和稳固性。',1);
+insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, details, isAccomplish) VALUES ('0001',3,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),'1、运用黑盒白盒测试对系统进行检测。2、撰写测试报告。',0);
+insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, details, isAccomplish) VALUES ('0001',4,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),'1、运用bootstrap美化界面。2、保证页面流畅稳定',0);
+insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, details, isAccomplish) VALUES ('0002',5,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),'1、实现并发控制，负载均衡。2、提升系统的流畅性和稳固性',1);
+insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, details, isAccomplish) VALUES ('0002',6,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),'1、运用黑盒白盒测试对系统进行检测。2、撰写测试报告。',0);
+insert into employeemanage.tasktoemp(emp_id, task_id, startTime, endTime, details, isAccomplish) VALUES ('0002',7,CURRENT_DATE+FLOOR(RAND()*3+1),CURRENT_DATE+FLOOR(RAND()*5+3),'1、运用bootstrap美化界面。2、保证页面流畅稳定',0);
+
+

@@ -16,10 +16,10 @@
         <result property="emp_id" column="emp_id" />
         <result property="emp_name" column="emp_name" />
         <result property="password" column="password" />
-        <association property="position" column="position_id" javaType="Position" select="getProject" />
+        <association property="position" column="position_id" javaType="Position" select="getPosition" />
         <association property="department" column="dept_id" javaType="Department" select="getDepartment" />
     </resultMap>
-    <select id="getProject" resultType="Position">
+    <select id="getPosition" resultType="Position">
         select * from employeemanage.position where position_id = #{position_id}
     </select>
     <select id="getDepartment" resultType="Department">

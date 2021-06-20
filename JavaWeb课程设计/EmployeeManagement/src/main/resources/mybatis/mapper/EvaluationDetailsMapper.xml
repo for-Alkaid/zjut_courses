@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjut.qll.mapper.EvaluationDetailsMapper">
+
+    <!--查询所有评价分数-->
+    <!--改！-->
+    <select id="queryAllEvalutionDetails" resultMap="EvaluationDetailsPlus">
+        select * from employeemanage.evaluationdetails
+    </select>
+    <resultMap id="EvaluationDetailsPlus" type="EvaluationDetails">
+        <association property="employee" column="eva_emp_id" javaType="Employee" select="getEmployee" />
+        <association property="evaluation" column="eva_id" javaType="Evaluation" select="getEva" />
+    </resultMap>
+    <select id="getEmployee" resultType="Employee">
+        select * from employeemanage.employee where emp_id = #{emp_id}
+    </select>
+    <select id="getEva" resultType="Evaluation">
+        select * from employeemanage.Evaluation where eva_id = #{eva_id}
+    </select>
+
+    <!--小改-->
+    <insert id="insertEvalutionDetails" parameterType="EvaluationDetails">
+        insert into employeemanage.evaluationdetails
+          (eva_id, eva_emp_id, progressRate, quality,
+           workload, customerReviews, responsibility,
+           attendance, positivity, conduct, teamCooperation,
+           improvingCapability, examSituation,
+           specialContribution, reasonableSuggestion, Score)
+        values (#{evaluation.eva_id}, #{employee.emp_id}, #{progressRate}, #{quality},
+                #{workload}, #{customerReviews}, #{responsibility},
+                #{attendance}, #{positivity}, #{conduct}, #{teamCooperation},
+                #{improvingCapability}, #{examSituation},
+                #{specialContribution}, #{reasonableSuggestion}, #{Score});
+    </insert>
+    <!--<parameterMap id="EvaluationDetails" type="">-->
+        <!--<parameter property="" />-->
+
+    <!--</parameterMap>-->
+
+
+</mapper>

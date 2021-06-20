@@ -1,11 +1,10 @@
 package com.zjut.qll.controller;
 
-import com.zjut.qll.mapper.DepartmentMapper;
-import com.zjut.qll.mapper.EmployeeMapper;
-import com.zjut.qll.mapper.PositionMapper;
+import com.zjut.qll.mapper.*;
 import com.zjut.qll.pojo.Department;
 import com.zjut.qll.pojo.Employee;
 import com.zjut.qll.pojo.Position;
+import com.zjut.qll.pojo.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -28,6 +27,13 @@ public class EmployeeController {
     private DepartmentMapper departmentMapper;
     @Autowired
     private PositionMapper positionMapper;
+    @Autowired
+    private ProjectMapper projectMapper;
+    @Autowired
+    private TaskToEmpMapper taskToEmpMapper;
+    @Autowired
+    private EvaluationMapper evaluationMapper;
+
 
     @RequestMapping("/user/login")
     public String login(@RequestParam("emp_id")String id,
@@ -51,8 +57,17 @@ public class EmployeeController {
             String positionName = employee.getPosition().getPosition_name();
             session.setAttribute("empPosition",positionName);
 
+
             if(positionName.equals("common")) return "redirect:/user/index";
-            else return "redirect:/advance/index";
+            else {
+                List<Employee> employees = employeeMapper.queryEmployees();
+                employees.remove(0);
+                session.setAttribute("employees",employees);
+                session.setAttribute("projects",projectMapper.queryAllProjects());
+                session.setAttribute("taskToEmp",taskToEmpMapper.queryAllTaskToEmp());
+                session.setAttribute("evaluations",evaluationMapper.queryAllEvaluations());
+                return "redirect:/advance/workbench";
+            }
         } else{
             model.addAttribute("msg","用户名或密码错误！");
             return "login";

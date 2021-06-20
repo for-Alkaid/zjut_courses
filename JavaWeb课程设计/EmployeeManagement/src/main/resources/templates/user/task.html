@@ -78,29 +78,32 @@
 
                             <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8">
                                 <thead>
-                                <tr>
+                                <tr >
+                                    <th>#</th>
                                     <th data-toggle="true">Task</th>
                                     <th>Name</th>
-                                    <th>Department</th>
-                                    <th data-hide="all">Company</th>
-                                    <th data-hide="all">Completed</th>
-                                    <th data-hide="all">Task</th>
-                                    <th data-hide="all">Date</th>
+                                    <th>Project</th>
+                                    <th data-hide="all">DeadLine</th>
+                                    <th data-hide="all">Details</th>
+
                                     <th>Accomplish</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr th:each="task,taskState:${session.tasks}">
+                                    <td th:text="${taskState.count}"></td>
                                     <td>Task - Details</td>
-                                    <td>Patrick Smith</td>
-                                    <td>0800 051213</td>
-                                    <td>Inceptos Hymenaeos Ltd</td>
-                                    <td><span class="pie">0.52/1.561</span></td>
-                                    <td>20%</td>
-                                    <td>Jul 14, 2013</td>
-                                    <td><a href="task.html#"><i class="fa fa-check text-navy"></i></a></td>
+                                    <td th:text="${task.getTask().getT_name()}"></td>
+                                    <td th:text="${task.getTask().getProject().getP_name()}"></td>
+                                    <td th:text="${#dates.format(task.getEndTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    <td th:text="${task.getDetails()}"></td>
+                                    <!--<div th:each="detail:${#strings.arraySplit(task.getDetails(),'。')}">-->
+                                        <!--<td th:text="${detail}"></td>-->
+                                        <!---->
+                                    <!--</div>-->
+                                    <td th:if="${task.getIsAccomplish()}"><a th:href="@{/user/task}"><i class="fa fa-check text-navy"></i></a></td>
+                                    <td th:unless="${task.getIsAccomplish()}"><a th:href="@{/user/task}"><i class="fa fa-times text-navy"></i></a></td>
                                 </tr>
-
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -114,8 +117,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">

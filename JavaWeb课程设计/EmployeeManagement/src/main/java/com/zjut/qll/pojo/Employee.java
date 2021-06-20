@@ -16,4 +16,5 @@ public class Employee {
     private Department department;
     private String emp_name;
     private String password;
+    private int clock_in;
 }

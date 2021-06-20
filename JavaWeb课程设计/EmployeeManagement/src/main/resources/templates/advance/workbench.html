@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee | Workbench</title>
+
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+
+    <link th:href="@{/css/plugins/ionRangeSlider/ion.rangeSlider.css}" rel="stylesheet">
+    <link th:href="@{/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div id="wrapper">
+        <!--侧边-->
+        <nav class="navbar-default navbar-static-side" role="navigation" th:fragment="siderbar">
+            <!--阿里图标库-->
+            <link rel="preload" href="//at.alicdn.com/t/font_2609633_0qshoep7y7f.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+            <link rel="stylesheet" href="//at.alicdn.com/t/font_2609633_0qshoep7y7f.css">
+
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" th:src="@{/img/profile_small.jpg}" />
+                             </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="index">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">[[${session.emp.getEmp_name()}]]</strong>
+                             </span> <span class="text-muted text-xs block">[[${session.empPosition}]]<b class="caret"></b></span> </span> </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="profile.html">Profile</a></li>
+                                <li><a href="contacts.html">Contacts</a></li>
+                                <li><a href="mailbox.html">Mailbox</a></li>
+                                <li class="divider"></li>
+                                <li><a th:href="@{/user/toLogin}">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            Q+
+                        </div>
+                    </li>
+                    <li th:class="active">
+                        <!--<a th:href="@{/index}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>-->
+                        <a><i class="iconfont icon-gongzuoqu"></i> <span class="nav-label">workbench</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="active"><a th:href="@{/advance/workbench}">Workbench <!--<span class="label label-primary pull-right">NEW</span>--></a></li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a th:href="@{/advance/index}"><i class="fa fa-clock-o fa-lg"></i> <span class="nav-label">敬请期待</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <!--头部-->
+        <div th:replace="~{commons/commons::topbar}" ></div>
+
+            <div class="wrapper wrapper-content animated fadeIn">
+                <div class="p-w-md m-t-sm">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Task</h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" >
+                                            <i class="fa fa-wrench"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-user">
+                                            <li><a th:href="@{/table_data_tables.html}">Config option 1</a>
+                                            </li>
+                                            <li><a th:href="@{/advance/workbench}">Config option 2</a>
+                                            </li>
+                                        </ul>
+                                        <a class="close-link">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+
+
+                                    <table class="table table-striped table-bordered table-hover " >
+                                        <thead>
+                                        <tr>
+                                            <th>员工ID</th>
+                                            <th>员工姓名</th>
+                                            <th>部门</th>
+                                            <th>操作</th>
+                                            <th>分数</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr class="gradeC" th:each="employee:${session.employees}" th:if="${employee.getPosition().getPosition_id()==1}">
+                                            <td th:text="${employee.getEmp_id()}"></td>
+                                            <td th:text="${employee.getEmp_name()}"></td>
+                                            <td th:text="${employee.getDepartment().getName()}"></td>
+
+                                            <td ><button type="button" onclick="getEmpId(this)" class="btn btn-warning" data-toggle="modal" data-target="#evaluationModal">打分</button></td>
+                                            <div th:each="evaluation:${session.evaluations}">
+                                                <td th:if="${session.empPosition == 'generalManager' and evaluation.getEmployee().getEmp_id()==employee.getEmp_id() }" th:text="${evaluation.getGeneralManagerScore()}"></td>
+                                                <td th:if="${session.empPosition == 'departmentManager' and evaluation.getEmployee().getEmp_id()==employee.getEmp_id() }" th:text="${evaluation.getDepartmentManagerScore()}"></td>
+                                                <td th:if="${session.empPosition == 'technicalDirector' and evaluation.getEmployee().getEmp_id()==employee.getEmp_id() }" th:text="${evaluation.getTechnicalDirectorScore()}"></td>
+                                            </div>
+
+                                        </tr>
+                                        </tbody>
+                                        <script>
+                                            function getEmpId(obj) {
+                                                var $td = $(obj).parents('tr').children('td');
+                                                var empId = $td.eq(0).text();
+                                                $("#eva_emp_id").val(empId);
+                                            }
+                                        </script>
+                                        <!--模态框 evaluationModal-->
+                                        <div class="modal inmodal" id="evaluationModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content animated fadeIn">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                        <i class="fa fa-file-text modal-icon"></i>
+                                                        <h4 class="modal-title" >evaluate</h4>
+                                                    </div>
+                                                    <form role="form" th:action="@{/advance/evaluate}" method="post" enctype="multipart/form-data">
+                                                        <div class="modal-body" >
+                                                            <input type="hidden" name="employee.emp_id" id="eva_emp_id" />
+                                                            <div class="form-group">
+                                                                <label><strong>进度</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="progressRate"><input type="hidden" id="progressRate1" name="progressRate" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>工作质量</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="quality"><input type="hidden" id="quality1" name="quality" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>工作量</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="workload"><input type="hidden" id="workload1" name="workload" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>客户评价</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="customerReviews"><input type="hidden" id="customerReviews1" name="customerReviews" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>责任感</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="responsibility"><input type="hidden" id="responsibility1" name="responsibility" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>考勤</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="attendance"><input type="hidden" id="attendance1" name="attendance" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>工作积极性</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="positivity"><input type="hidden" id="positivity1" name="positivity" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>行为规范</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="conduct"><input type="hidden" id="conduct1" name="conduct" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>团队协作能力</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="teamCooperation"><input type="hidden" id="teamCooperation1" name="teamCooperation" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>提升能力</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="improvingCapability"><input type="hidden" id="improvingCapability1" name="improvingCapability" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>考试情况</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="examSituation"><input type="hidden" id="examSituation1" name="examSituation" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>特殊贡献(加分)</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="specialContribution"><input type="hidden" id="specialContribution1" name="specialContribution" /></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label><strong>合理建议(加分)</strong></label>
+                                                                <div class="text-center">
+                                                                    <div id="reasonableSuggestion"><input type="hidden" id="reasonableSuggestion1" name="reasonableSuggestion" /></div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">evaluate</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <tfoot>
+                                        <tr>
+                                            <th>员工ID</th>
+                                            <th>员工姓名</th>
+                                            <th>部门</th>
+                                            <th>操作</th>
+                                            <th>分数</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Task</h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                            <i class="fa fa-wrench"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-user">
+                                            <li><a href="">Config option 1</a>
+                                            </li>
+                                            <li><a href="">Config option 2</a>
+                                            </li>
+                                        </ul>
+                                        <a class="close-link">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="">
+                                        <a class="btn btn-primary"
+                                           data-toggle="modal" data-target="#addTask">Add a new task</a>
+                                    </div>
+                                    <!--模态框 addTask-->
+                                    <div class="modal inmodal" id="addTask" tabindex="-1" role="dialog"  aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content animated fadeIn">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <i class="fa fa-plus-circle modal-icon"></i>
+                                                    <h4 class="modal-title" >addTask</h4>
+                                                </div>
+                                                <form role="form" th:action="@{/advance/addTask}" method="post">
+                                                    <div class="modal-body" >
+
+                                                        <div class="form-group">
+                                                            <strong>任务名称</strong>
+                                                            <input id="taskName" type="text" name="t_name" class="form-control" required=""/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <strong>员工姓名</strong>
+                                                            <select class="form-control m-b" name="employee.emp_id" >
+                                                                <option id="emp" th:each="e:${session.employees}"
+                                                                        th:value="${e.getEmp_id()}" th:text="${e.getEmp_name()}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <strong>项目名称</strong>
+                                                            <select class="form-control m-b" name="project.p_id" >
+                                                                <option id="project" th:each="project:${session.projects}"
+                                                                        th:value="${project.getP_id()}" th:text="${project.getP_name()}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group" id="deadLine">
+                                                            <label class="font-noraml"><strong>期限</strong></label>
+                                                            <div class="input-daterange input-group" id="datepicker">
+                                                                <input class="input-sm form-control" name="startTime" th:value="${#dates.format(#dates.createNow(),'yyyy/MM/dd')}"/>
+                                                                <span class="input-group-addon">to</span>
+                                                                <input class="input-sm form-control" name="endTime" th:value="${#dates.format(#dates.createNow(),'yyyy/MM/dd')}" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <strong>详情</strong>
+                                                            <textarea id="details" name="details" class="form-control" style="min-width: 90%"></textarea>
+                                                            <!--<input id="empName" th:text="text" name="emp_">-->
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover " >
+                                        <thead>
+                                        <tr>
+                                            <th>任务ID</th>
+                                            <th>任务名称</th>
+                                            <th>项目名称</th>
+                                            <th>负责人</th>
+                                            <th>部门</th>
+                                            <th>是否完成</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="gradeX" th:each="task:${session.taskToEmp}">
+                                            <td th:text="${task.getTask().getT_id()}"></td>
+                                            <td th:text="${task.getTask().getT_name()}"></td>
+                                            <td th:text="${task.getTask().getProject().getP_name()}"></td>
+                                            <td th:text="${task.getEmployee().getEmp_name()}"></td>
+                                            <td th:text="${task.getEmployee().getDepartment().getName()}"></td>
+                                            <td th:if="${task.getIsAccomplish()}"><a th:href="@{/user/task}"><i class="fa fa-check text-navy"></i></a></td>
+                                            <td th:unless="${task.getIsAccomplish()}"><a th:href="@{/user/task}"><i class="fa fa-times text-navy"></i></a></td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>任务ID</th>
+                                            <th>任务名称</th>
+                                            <th>负责人</th>
+                                            <th>部门</th>
+                                            <th>是否完成</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        <!--底部-->
+        <div th:replace="~{commons/commons::footer}" ></div>
+        </div>
+
+    </div>
+
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-2.1.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Data picker -->
+    <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+    <!-- JSKnob -->
+    <!--<script th:src="@{/js/plugins/jsKnob/jquery.knob.js}"></script>-->
+
+    <!-- IonRangeSlider -->
+    <!--<script th:src="@{/js/plugins/ionRangeSlider/ion.rangeSlider.min.js}"></script>-->
+
+    <!--Plugin CSS file with desired skin-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!--Plugin JavaScript file-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#deadLine .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+                format: "yyyy/mm/dd"
+            });
+
+            $('#editable').DataTable();
+        });
+
+        var $progressRate = $("#progressRate");
+        $progressRate.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#progressRate1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#progressRate1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var quality = $("#quality");
+        quality.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#quality1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#quality1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var workload = $("#workload");
+        workload.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#workload1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#workload1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var customerReviews = $("#customerReviews");
+        customerReviews.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#customerReviews1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#customerReviews1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var responsibility = $("#responsibility");
+        responsibility.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#responsibility1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#responsibility1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var attendance = $("#attendance");
+        attendance.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#attendance1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#attendance1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var positivity = $("#positivity");
+        positivity.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#positivity1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#positivity1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var conduct = $("#conduct");
+        conduct.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#conduct1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#conduct1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var teamCooperation = $("#teamCooperation");
+        teamCooperation.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#teamCooperation1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#teamCooperation1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var improvingCapability = $("#improvingCapability");
+        improvingCapability.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#improvingCapability1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#improvingCapability1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var examSituation = $("#examSituation");
+        examSituation.ionRangeSlider({
+            min: 0,
+            max: 100,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#examSituation1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#examSituation1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var specialContribution = $("#specialContribution");
+        specialContribution.ionRangeSlider({
+            min: 0,
+            max: 8,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#specialContribution1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#specialContribution1");
+                $input.prop("value", data.from);
+            }
+        });
+
+        var reasonableSuggestion = $("#reasonableSuggestion");
+        reasonableSuggestion.ionRangeSlider({
+            min: 0,
+            max: 2,
+            type: 'single',
+            step: 1,
+            postfix: " 分",
+            prettify: false,
+            hasGrid: false,
+            onStart: function(data) {
+                var $input = $("#reasonableSuggestion1");
+                $input.prop("value", data.from);
+            },
+            onChange: function(data) {
+                var $input = $("#reasonableSuggestion1");
+                $input.prop("value", data.from);
+            }
+        });
+
+
+
+    </script>
+</body>
+</html>

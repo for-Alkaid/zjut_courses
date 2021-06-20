@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjut.qll.mapper.EvaluationMapper">
+
+    <!--查询所有评分-->
+    <select id="queryAllEvaluations" resultMap="EvaluationPlus">
+        select * from employeemanage.evaluation
+    </select>
+    <resultMap id="EvaluationPlus" type="Evaluation">
+        <association property="employee" column="emp_id" javaType="Task" select="getEmployee" />
+    </resultMap>
+    <select id="getEmployee" resultType="Employee">
+        select * from employeemanage.employee where emp_id = #{emp_id}
+    </select>
+
+    <select id="queryEvaluationByEmpIdAndTime" resultMap="EvaluationPlus">
+        select * from employeemanage.evaluation where emp_id = #{emp_id} and MONTH(eva_time) = MONTH(#{eva_time})
+    </select>
+
+    <insert id="insertEvaluation" parameterType="Object">
+        insert into employeemanage.evaluation (emp_id,eva_time) values (#{emp_id},#{eva_time})
+    </insert>
+
+    <update id="updateSomeoneScore" parameterType="map">
+        update employeemanage.evaluation set
+        <if test='position == "technicalDirector" '>
+            technicalDirectorScore = #{score}
+        </if>
+        <if test='position == "departmentManager" '>
+            departmentManagerScore = #{score}
+        </if>
+        <if test='position == "generalManager" ' >
+            generalManagerScore = #{score}
+        </if>
+        ,monthScore=monthScore+#{score}
+        where emp_id = #{emp_id}
+    </update>
+
+
+    <select id="queryLastEvaId" resultType="Evaluation">
+#         select * from employeemanage.evaluation where eva_id = (select max(eva_id) from evaluation)
+        select max(eva_id) from employeemanage.evaluation
+    </select>
+
+</mapper>

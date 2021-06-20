@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -13,5 +14,11 @@ public interface TaskMapper {
 
     List<Task> queryAllTasks();
 
-    List<Task> queryTaskById(@Param("t_id")int id);
+    Task queryTaskById(@Param("t_id")int id);
+
+    int queryLastTaskId();
+
+    int insertTask(Map taskMap);
+
+
 }

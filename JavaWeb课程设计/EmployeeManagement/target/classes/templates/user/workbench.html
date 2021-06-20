@@ -80,8 +80,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                            <tr th:each="task,taskState:${tasks}">
+                                            <tr th:each="task,taskState:${session.tasks}">
                                                 <td th:text="${taskState.count}"></td>
                                                 <td th:text="${task.getTask().getT_name()}"></td>
                                                 <td th:text="${task.getTask().getProject().getP_name()}"></td>

@@ -2,8 +2,6 @@
 <!--suppress ThymeleafVariablesResolveInspection -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
-
 <!--底部公共部分-->
 <div class="footer" th:fragment="footer">
     <div>
@@ -120,8 +118,6 @@
                     </li>
                 </ul>
             </li>
-
-
             <li>
                 <a th:href="@{/user/toLogin}">
                     <i class="fa fa-sign-out"></i> Log out
@@ -186,7 +182,7 @@
                 <a th:href="@{/user/documents}"><!--i class="fa fa-pie-chart"--><i class="iconfont icon-wendang1-copy-copy-copy"> </i> <span class="nav-label">Documents</span>  </a>
             </li>
             <li >
-                <a href="widgets.html"><i class="fa fa-flask"></i> <span class="nav-label">Widgets</span></a>
+                <a th:href="@{/user/index}"><i class="fa fa-clock-o fa-lg"></i> <span class="nav-label">敬请期待</span></a>
             </li>
 
             <li>

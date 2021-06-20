@@ -17,5 +17,6 @@ public class TaskToEmp {
     private Task task;
     private Date startTime;
     private Date endTime;
+    private String details;
     private int isAccomplish;
 }
