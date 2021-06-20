@@ -5,8 +5,7 @@
 <mapper namespace="com.zjut.qll.mapper.EvaluationDetailsMapper">
 
     <!--查询所有评价分数-->
-    <!--改！-->
-    <select id="queryAllEvalutionDetails" resultMap="EvaluationDetailsPlus">
+    <select id="queryAllEvaluationDetails" resultMap="EvaluationDetailsPlus">
         select * from employeemanage.evaluationdetails
     </select>
     <resultMap id="EvaluationDetailsPlus" type="EvaluationDetails">
@@ -17,11 +16,16 @@
         select * from employeemanage.employee where emp_id = #{emp_id}
     </select>
     <select id="getEva" resultType="Evaluation">
-        select * from employeemanage.Evaluation where eva_id = #{eva_id}
+        select * from employeemanage.evaluation where eva_id = #{eva_id}
     </select>
 
-    <!--小改-->
-    <insert id="insertEvalutionDetails" parameterType="EvaluationDetails">
+
+    <select id="queryEvaluationDetailByEvaId" resultMap="EvaluationDetailsPlus">
+        select * from employeemanage.evaluationdetails where eva_id = #{eva_id}
+    </select>
+
+
+    <insert id="insertEvaluationDetails" parameterType="EvaluationDetails">
         insert into employeemanage.evaluationdetails
           (eva_id, eva_emp_id, progressRate, quality,
            workload, customerReviews, responsibility,
@@ -32,12 +36,19 @@
                 #{workload}, #{customerReviews}, #{responsibility},
                 #{attendance}, #{positivity}, #{conduct}, #{teamCooperation},
                 #{improvingCapability}, #{examSituation},
-                #{specialContribution}, #{reasonableSuggestion}, #{Score});
+                #{specialContribution}, #{reasonableSuggestion}, #{Score})
     </insert>
-    <!--<parameterMap id="EvaluationDetails" type="">-->
-        <!--<parameter property="" />-->
-
-    <!--</parameterMap>-->
+    <update id="updateEvaluationDetails" parameterType="EvaluationDetails">
+        update employeemanage.evaluationdetails set
+        eva_emp_id=#{employee.emp_id},
+        progressRate=#{progressRate}, quality=#{quality},
+        workload=#{workload}, customerReviews=#{customerReviews}, responsibility=#{responsibility},
+        attendance=#{attendance}, positivity=#{positivity}, conduct=#{conduct},
+        teamCooperation=#{teamCooperation},improvingCapability=#{improvingCapability},
+        examSituation=#{examSituation},specialContribution=#{specialContribution},
+        reasonableSuggestion=#{reasonableSuggestion}, Score = #{Score}
+        where eva_id=#{evaluation.eva_id}
+    </update>
 
 
 </mapper>

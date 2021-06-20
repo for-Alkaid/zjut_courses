@@ -13,9 +13,9 @@ import java.util.Date;
 public class Evaluation {
     private int eva_id;
     private Employee employee;
-    private int departmentManagerScore;
-    private int technicalDirectorScore;
-    private int generalManagerScore;
-    private int monthScore;
+    private double departmentManagerScore;
+    private double technicalDirectorScore;
+    private double generalManagerScore;
+    private double monthScore;
     private Date eva_time;
 }

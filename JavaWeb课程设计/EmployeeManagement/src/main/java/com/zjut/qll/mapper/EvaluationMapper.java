@@ -21,7 +21,6 @@ public interface EvaluationMapper {
 
     int updateSomeoneScore(Map map);
 
-    //查找最新更新的评价id
-    int queryLastEvaId();
+
 
 }

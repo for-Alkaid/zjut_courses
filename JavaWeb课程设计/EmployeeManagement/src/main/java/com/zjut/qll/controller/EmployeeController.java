@@ -58,10 +58,11 @@ public class EmployeeController {
             session.setAttribute("empPosition",positionName);
 
 
+
             if(positionName.equals("common")) return "redirect:/user/index";
             else {
                 List<Employee> employees = employeeMapper.queryEmployees();
-                employees.remove(0);
+                employees.remove(0);  //移除管理员
                 session.setAttribute("employees",employees);
                 session.setAttribute("projects",projectMapper.queryAllProjects());
                 session.setAttribute("taskToEmp",taskToEmpMapper.queryAllTaskToEmp());

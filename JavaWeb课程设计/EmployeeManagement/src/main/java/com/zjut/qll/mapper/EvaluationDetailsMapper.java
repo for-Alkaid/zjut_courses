@@ -2,6 +2,7 @@ package com.zjut.qll.mapper;
 
 import com.zjut.qll.pojo.EvaluationDetails;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,10 +11,12 @@ import java.util.List;
 @Repository
 public interface EvaluationDetailsMapper {
 
-    List<EvaluationDetails> queryAllEvalutionDetails();
+    List<EvaluationDetails> queryAllEvaluationDetails();
 
-    int insertEvalutionDetails(EvaluationDetails evaluationDetails);
+    int insertEvaluationDetails(EvaluationDetails evaluationDetails);
 
+    EvaluationDetails queryEvaluationDetailByEvaId(@Param("eva_id")int eva_id);
 
+    int updateEvaluationDetails(EvaluationDetails evaluationDetails);
 
 }

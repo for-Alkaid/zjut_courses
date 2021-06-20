@@ -30,7 +30,6 @@ public class EvaluationDetails {
     private int reasonableSuggestion;
     private double Score;
 
-
     public void calculate(){
         Score += 0.15*(progressRate+quality)
                   +0.1*(workload+customerReviews+responsibility+attendance+positivity)

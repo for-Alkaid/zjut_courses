@@ -1009,23 +1009,23 @@
     </column>
     <column id="255" parent="237" name="departmentManagerScore">
       <Position>3</Position>
-      <DataType>int(3)|0s</DataType>
+      <DataType>double(5,2 digit)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>0.00</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="256" parent="237" name="technicalDirectorScore">
       <Position>4</Position>
-      <DataType>int(3)|0s</DataType>
+      <DataType>double(5,2 digit)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>0.00</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="257" parent="237" name="generalManagerScore">
       <Position>5</Position>
-      <DataType>int(3)|0s</DataType>
+      <DataType>double(5,2 digit)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>0.00</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="258" parent="237" name="monthScore">
@@ -1144,134 +1144,110 @@ eva_time</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="238" name="dm_isEvaluated">
-      <Position>17</Position>
-      <Comment>部门经理是否打过分</Comment>
-      <DataType>tinyint(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>0</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="278" parent="238" name="td_isEvaluated">
-      <Position>18</Position>
-      <Comment>技术总监是否打过分</Comment>
-      <DataType>tinyint(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>0</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="279" parent="238" name="gm_isEvaluated">
-      <Position>19</Position>
-      <Comment>总经理是否打过分</Comment>
-      <DataType>tinyint(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>0</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="280" parent="239" name="position_id">
+    <column id="277" parent="239" name="position_id">
       <Position>1</Position>
       <DataType>int(4)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="281" parent="239" name="position_name">
+    <column id="278" parent="239" name="position_name">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="282" parent="239" name="PRIMARY">
+    <key id="279" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>position_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="283" parent="240" name="p_id">
+    <column id="280" parent="240" name="p_id">
       <Position>1</Position>
       <DataType>int(6)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="240" name="p_name">
+    <column id="281" parent="240" name="p_name">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="285" parent="240" name="PRIMARY">
+    <key id="282" parent="240" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>p_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="286" parent="241" name="t_id">
+    <column id="283" parent="241" name="t_id">
       <Position>1</Position>
       <DataType>int(4)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="241" name="t_name">
+    <column id="284" parent="241" name="t_name">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="288" parent="241" name="p_id">
+    <column id="285" parent="241" name="p_id">
       <Position>3</Position>
       <DataType>int(6)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="289" parent="241" name="PRIMARY">
+    <key id="286" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>t_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="290" parent="242" name="te_id">
+    <column id="287" parent="242" name="te_id">
       <Position>1</Position>
       <DataType>int(6)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="291" parent="242" name="emp_id">
+    <column id="288" parent="242" name="emp_id">
       <Position>2</Position>
       <DataType>varchar(4)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="242" name="task_id">
+    <column id="289" parent="242" name="task_id">
       <Position>3</Position>
       <DataType>int(4)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="242" name="startTime">
+    <column id="290" parent="242" name="startTime">
       <Position>4</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="242" name="endTime">
+    <column id="291" parent="242" name="endTime">
       <Position>5</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="295" parent="242" name="details">
+    <column id="292" parent="242" name="details">
       <Position>6</Position>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="296" parent="242" name="isAccomplish">
+    <column id="293" parent="242" name="isAccomplish">
       <Position>7</Position>
       <DataType>int(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="297" parent="242" name="PRIMARY">
+    <key id="294" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>te_id</ColNames>
       <Primary>1</Primary>

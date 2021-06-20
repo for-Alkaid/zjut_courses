@@ -34,14 +34,11 @@
         <if test='position == "generalManager" ' >
             generalManagerScore = #{score}
         </if>
-        ,monthScore=monthScore+#{score}
+        ,monthScore=technicalDirectorScore+departmentManagerScore+generalManagerScore
         where emp_id = #{emp_id}
     </update>
 
 
-    <select id="queryLastEvaId" resultType="Evaluation">
-#         select * from employeemanage.evaluation where eva_id = (select max(eva_id) from evaluation)
-        select max(eva_id) from employeemanage.evaluation
-    </select>
+
 
 </mapper>

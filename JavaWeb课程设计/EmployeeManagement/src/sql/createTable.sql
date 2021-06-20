@@ -83,8 +83,8 @@ create table if not exists evaluationDetails(
   `examSituation` int(3) NOT NULL ,
   `specialContribution` int(3) NOT NULL ,
   `reasonableSuggestion` int(3) NOT NULL ,
-  `Score` double(5,2) NOT NULL,
-  `dm_isEvaluated` bool not null default false comment '部门经理是否打过分',
-  `td_isEvaluated` bool not null default false comment '技术总监是否打过分',
-  `gm_isEvaluated` bool not null default false comment '总经理是否打过分'
+  `Score` double(5,2) NOT NULL
+#   `dm_isEvaluated` bool not null default false comment '部门经理是否打过分',
+#   `td_isEvaluated` bool not null default false comment '技术总监是否打过分',
+#   `gm_isEvaluated` bool not null default false comment '总经理是否打过分'
 )ENGINE = INNODB DEFAULT charset =utf8;

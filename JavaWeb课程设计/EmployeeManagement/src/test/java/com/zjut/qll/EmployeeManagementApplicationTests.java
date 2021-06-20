@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.*;
@@ -33,10 +34,10 @@ class EmployeeManagementApplicationTests {
 
     @Test
     void contextLoads() throws SQLException {
-
-
-
-
+//        List<Evaluation> evaluations = evaluationMapper.queryAllEvaluations();
+//        for (Evaluation evaluation : evaluations) {
+//            System.out.println(evaluation);
+//        }
 
     }
 

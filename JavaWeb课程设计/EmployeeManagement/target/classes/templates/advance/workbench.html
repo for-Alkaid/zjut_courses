@@ -111,16 +111,18 @@
                                         </thead>
                                         <tbody>
 
-                                        <tr class="gradeC" th:each="employee:${session.employees}" th:if="${employee.getPosition().getPosition_id()==1}">
-                                            <td th:text="${employee.getEmp_id()}"></td>
-                                            <td th:text="${employee.getEmp_name()}"></td>
-                                            <td th:text="${employee.getDepartment().getName()}"></td>
+                                        <tr class="gradeC" th:each="e:${session.employees}"
+                                            th:if="${e.getPosition().getPosition_id()==1}">
+
+                                            <td th:text="${e.getEmp_id()}"></td>
+                                            <td th:text="${e.getEmp_name()}"></td>
+                                            <td th:text="${e.getDepartment().getName()}"></td>
 
                                             <td ><button type="button" onclick="getEmpId(this)" class="btn btn-warning" data-toggle="modal" data-target="#evaluationModal">打分</button></td>
-                                            <div th:each="evaluation:${session.evaluations}">
-                                                <td th:if="${session.empPosition == 'generalManager' and evaluation.getEmployee().getEmp_id()==employee.getEmp_id() }" th:text="${evaluation.getGeneralManagerScore()}"></td>
-                                                <td th:if="${session.empPosition == 'departmentManager' and evaluation.getEmployee().getEmp_id()==employee.getEmp_id() }" th:text="${evaluation.getDepartmentManagerScore()}"></td>
-                                                <td th:if="${session.empPosition == 'technicalDirector' and evaluation.getEmployee().getEmp_id()==employee.getEmp_id() }" th:text="${evaluation.getTechnicalDirectorScore()}"></td>
+                                            <div th:each="evaluation:${session.evaluations}" >
+                                                <td th:if="${session.empPosition == 'generalManager' and evaluation.getEmployee().getEmp_id()==e.getEmp_id()}" th:text="${evaluation.getGeneralManagerScore()}"></td>
+                                                <td th:if="${session.empPosition == 'departmentManager' and evaluation.getEmployee().getEmp_id()==e.getEmp_id()}" th:text="${evaluation.getDepartmentManagerScore()}"></td>
+                                                <td th:if="${session.empPosition == 'technicalDirector' and evaluation.getEmployee().getEmp_id()==e.getEmp_id()}" th:text="${evaluation.getTechnicalDirectorScore()}"></td>
                                             </div>
 
                                         </tr>
@@ -132,6 +134,7 @@
                                                 $("#eva_emp_id").val(empId);
                                             }
                                         </script>
+
                                         <!--模态框 evaluationModal-->
                                         <div class="modal inmodal" id="evaluationModal" tabindex="-1" role="dialog"  aria-hidden="true">
                                             <div class="modal-dialog">
