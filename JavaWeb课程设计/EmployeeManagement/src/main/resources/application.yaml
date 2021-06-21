@@ -9,6 +9,10 @@ spring:
     cache: false
     encoding: utf-8
     prefix: classpath:/templates/
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 #  resources:
 #    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
 server:

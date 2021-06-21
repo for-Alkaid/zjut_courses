@@ -41,9 +41,12 @@ class EmployeeManagementApplicationTests {
 //            System.out.println(evaluation);
 //        }
 
-        List<Double> list = evaluationMapper.queryEvaluationByEmpId("0001");
-        System.out.println(Collections.max(list));
-        System.out.println(Collections.min(list));
+
+        List<Evaluation> e = evaluationMapper.queryEvaluationByEmpId("0001",null);
+        System.out.println(e);
+//        for (Evaluation evaluation : list) {
+//            System.out.println(evaluation);
+//        }
     }
 
 

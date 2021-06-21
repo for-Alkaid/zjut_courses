@@ -2,15 +2,13 @@ package com.zjut.qll.controller;
 
 import com.zjut.qll.mapper.*;
 import com.zjut.qll.pojo.*;
-import com.zjut.qll.util.CompareMonth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.time.Month;
 import java.util.*;
 
 import static java.util.Collections.max;
@@ -46,13 +44,55 @@ public class TaskController {
             return "redirect:/advance/workbench";
         }
 
-        Evaluation evaluation = evaluationMapper.queryEvaluationByEmpIdAndTime(employee.getEmp_id(), new Date());
-        model.addAttribute("evaluation",evaluation);
-        List<Double> yearScore = evaluationMapper.queryEvaluationByEmpId(employee.getEmp_id());
+        Evaluation currentMonthEvaluation = evaluationMapper.queryEvaluationByEmpIdAndTime(employee.getEmp_id(), new Date());
+        String assess;  // 评价等级判断
+        if (currentMonthEvaluation == null){
+            currentMonthEvaluation = new Evaluation(0,employee,0,0,0,0,new Date());
+            assess = "-";
+        }
+        else {
+            if (currentMonthEvaluation.getMonthScore() >= 95) assess = "A";
+            else if (currentMonthEvaluation.getMonthScore() >= 85) assess = "A";
+            else if (currentMonthEvaluation.getMonthScore() >= 75) assess = "B";
+            else if (currentMonthEvaluation.getMonthScore() >= 60) assess = "C";
+            else assess = "D";
+        }
+        model.addAttribute("evaluation",currentMonthEvaluation);
+        model.addAttribute("assess",assess);
+
+        // 查出所有个人今年的所有评价
+        List<Evaluation> currentYearEvaluation = evaluationMapper.queryEvaluationByEmpId(employee.getEmp_id(),null);
+        for (Evaluation evaluation : currentYearEvaluation) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(evaluation.getEva_time());
+            System.out.println(calendar.get(Calendar.MONTH));
+            System.out.println(evaluation.getMonthScore());
+        }
+        List<Double> yearScore = new ArrayList<>(12);
+        //构造一整年的评价分数
+        for (int i = 0; i < 12; i++) {
+            yearScore.add(i,0.0);
+        }
+        for (Evaluation evaluation : currentYearEvaluation) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(evaluation.getEva_time());
+            yearScore.add(calendar.get(Calendar.MONTH),evaluation.getMonthScore());
+        }
+        for (Double y : yearScore) {
+            System.out.println(y);
+        }
         model.addAttribute("yearScore",yearScore);
         model.addAttribute("best",max(yearScore));
         model.addAttribute("worst",min(yearScore));
-        System.out.println(yearScore);
+        //季度分数
+        double[] quarterlyScore = new double[12];
+        for (int i = 0; i < yearScore.size(); i++) {
+            if((i+1)%3==0) {
+                quarterlyScore[i] = (yearScore.get(i-1)+yearScore.get(i-2)+yearScore.get(i))/3;
+                quarterlyScore[i-2] = quarterlyScore[i-1] = quarterlyScore[i] ;
+            }
+        }
+        model.addAttribute("quarterlyScore",quarterlyScore);
         return "user/workbench";
     }
 

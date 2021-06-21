@@ -19,7 +19,7 @@ public class RouterController {
     @RequestMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "login";
+        return "redirect:/login";
     }
 
 }

@@ -100,8 +100,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-4">
-                            <h1 class="m-b-xs">
+                        <div class="col-sm-5">
+                            <h1 class="m-b-xs text-center">
                                 [[${#dates.month(#dates.createNow())}]]月得分:[[${evaluation.getMonthScore()}]]分
                             </h1>
 
@@ -113,15 +113,10 @@
 
 
                         </div>
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-5">
                             <h1 class="m-b-xs" >
-                                本月考核成绩：
-                                <span th:if="${evaluation.getMonthScore()>=95}" th:text="A+"></span>
-                                <span th:if="${evaluation.getMonthScore()>=85 and evaluation.getMonthScore()<95}" th:text="A"></span>
-                                <span th:if="${evaluation.getMonthScore()>=75 and evaluation.getMonthScore()<85}" th:text="B"></span>
-                                <span th:if="${evaluation.getMonthScore()>=60 and evaluation.getMonthScore()<75}" th:text="C"></span>
-                                <span th:if="${evaluation.getMonthScore()<60}" th:text="D"></span>
+                                本月考核成绩：[[${assess}]]
                             </h1>
                             <small>
                                 history in last year
@@ -147,23 +142,24 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="small pull-left col-md-3 m-l-lg m-t-md">
-                                <strong>业绩</strong>
+                            <div class="small pull-left col-md-6 m-l-lg m-t-md">
+                                <h3><strong>业绩</strong></h3>
                             </div>
-                            <div class="small pull-right col-md-3 m-t-md text-right">
-                                <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                            <div class="small pull-right col-md-0 m-t-md text-left">
+                                <h4>
+                                    <strong>绿色：</strong> 月考核<br>
+                                    <strong>灰色：</strong> 季度考核
+                                </h4>
                             </div>
-                            <!--<div class="flot-chart m-b-xl">-->
-                                <!--<div th:each="ys:${yearScore}">-->
-                                    <!--<input type="hidden" name="yearScore" id="yearScore" th:value="${ys}" />-->
-                                <!--</div>-->
-                                <!--&lt;!&ndash;<input type="hidden" id="quarterlyScore" th:value="${quarterlyScore}" />&ndash;&gt;-->
-                                <!--<div class="flot-chart-content" id="flot-dashboard5-chart"></div>-->
-                            <!--</div>-->
+                            <div th:each="qs:${quarterlyScore}">
+                                <input type="hidden" name="quarterlyScore" id="quarterlyScore" th:value="${qs}" />
+                            </div>
                             <div th:each="ys:${yearScore}">
+                                <!--年数据-->
                                 <input type="hidden" name="yearScore" id="yearScore" th:value="${ys}" />
                             </div>
                             <div>
+                                <!--图表可视化-->
                                 <canvas id="lineChart" height="70"></canvas>
                             </div>
                         </div>
@@ -201,7 +197,7 @@
     <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
 
     <!-- Sparkline -->
-    <!--<script th:src="@{/js/plugins/sparkline/jquery.sparkline.min.js}"></script>-->
+    <script th:src="@{/js/plugins/sparkline/jquery.sparkline.min.js}"></script>
 
     <script th:src="@{/js/plugins/d3/d3.min.js}"></script>
     <script th:src="@{/js/plugins/c3/c3.min.js}"></script>
@@ -212,42 +208,43 @@
 
     <script>
         $(document).ready(function() {
-            var score = $("#gauge1").val();
 
+            //评分可视化
+            var score = $("#gauge1").val();
             c3.generate({
                 bindto: '#gauge',
                 data:{
                     columns: [
-                        ['data', score]
+                        ['score', score]
                     ],
 
                     type: 'gauge'
                 },
                 color:{
-                    pattern: ['#1ab394', '#BABABA']
+                    pattern: ['#1ab394', '#BABABA'],
+                    // threshold: {
+                    //     unit: 'value', // percentage is default
+                    // }
 
                 },
                 gauge: {
                    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
                    max: 100, // 100 is default
-                   units: '*',
+                   units: ' ',
                    width: 39 // for adjusting arc thickness
                 }
 
             });
 
-
-            var yearScore = document.getElementsByName("yearScore");
-
-            for(var i=0;i<yearScore.length;++i){
-                console.log(yearScore[i].value);
-            }
-
-
         });
+        var quarterlyScore = document.getElementsByName("quarterlyScore");
+        var qs = [];
+        for(var i=0;i<quarterlyScore.length;++i){
+            qs[i] = quarterlyScore[i].value;
+        }
         var yearScore = document.getElementsByName("yearScore");
         var ys = [];
-        for(var i=0;i<yearScore.length;++i){
+        for(i=0;i<yearScore.length;++i){
             ys[i] = yearScore[i].value;
         }
         var lineData = {
@@ -272,7 +269,7 @@
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [' ',' ',' ',80,' '," ",50,50," ",30," ",30]
+                    data: qs
                 },
 
             ]
@@ -296,6 +293,27 @@
 
         var ctx = $("#lineChart").get(0).getContext("2d");
         var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+
+        // 小图的年度评分
+        var sparklineCharts = function(){
+            $("#sparkline2").sparkline(ys, {
+                type: 'line',
+                width: '100%',
+                height: '50',
+                lineColor: '#1ab394',
+                fillColor: "transparent"
+            });
+
+        };
+
+        var sparkResize;
+
+        $(window).resize(function(e) {
+            clearTimeout(sparkResize);
+            sparkResize = setTimeout(sparklineCharts, 500);
+        });
+
+        sparklineCharts();
     </script>
 </body>
 </html>

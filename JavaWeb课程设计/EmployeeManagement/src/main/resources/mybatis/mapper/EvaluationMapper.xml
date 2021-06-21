@@ -38,9 +38,20 @@
         where emp_id = #{emp_id}
     </update>
 
-    <select id="queryEvaluationByEmpId" resultType="double">
-        select monthScore from employeemanage.evaluation where emp_id=#{emp_id}
+    <!--可查所有评价或者一年的评价-->
+    <select id="queryEvaluationByEmpId" resultMap="EvaluationPlus">
+        select * from employeemanage.evaluation
+        <where>
+            emp_id=#{emp_id}
+            <if test="eva_time!=null">
+                and year(eva_time)=year(current_date())
+            </if>
+        </where>
     </select>
+
+    <!--<select id="queryEvaluationByEmpIdCurrentYear" resultMap="EvaluationPlus">-->
+        <!--select * from employeemanage.evaluation where emp_id=#{emp_id} and year(eva_time)=year(current_date())-->
+    <!--</select>-->
 
 
 
