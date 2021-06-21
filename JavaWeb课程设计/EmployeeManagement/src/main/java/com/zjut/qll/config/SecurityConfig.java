@@ -11,5 +11,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/").permitAll();
 
         http.formLogin().loginPage("/login");
+
+        http.logout().logoutSuccessUrl("/logout").deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true);
     }
 }

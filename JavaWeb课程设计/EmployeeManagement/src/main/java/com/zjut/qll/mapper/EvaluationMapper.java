@@ -21,6 +21,8 @@ public interface EvaluationMapper {
 
     int updateSomeoneScore(Map map);
 
+    List<Double> queryEvaluationByEmpId(@Param("emp_id")String emp_id);
+
 
 
 }

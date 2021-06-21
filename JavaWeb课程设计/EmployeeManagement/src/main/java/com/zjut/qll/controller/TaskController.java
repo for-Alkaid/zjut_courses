@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
+import static java.util.Collections.max;
+import static java.util.Collections.min;
+
 
 @Controller
 public class TaskController {
@@ -45,6 +48,11 @@ public class TaskController {
 
         Evaluation evaluation = evaluationMapper.queryEvaluationByEmpIdAndTime(employee.getEmp_id(), new Date());
         model.addAttribute("evaluation",evaluation);
+        List<Double> yearScore = evaluationMapper.queryEvaluationByEmpId(employee.getEmp_id());
+        model.addAttribute("yearScore",yearScore);
+        model.addAttribute("best",max(yearScore));
+        model.addAttribute("worst",min(yearScore));
+        System.out.println(yearScore);
         return "user/workbench";
     }
 

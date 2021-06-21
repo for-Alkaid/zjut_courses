@@ -38,6 +38,10 @@
         where emp_id = #{emp_id}
     </update>
 
+    <select id="queryEvaluationByEmpId" resultType="double">
+        select monthScore from employeemanage.evaluation where emp_id=#{emp_id}
+    </select>
+
 
 
 

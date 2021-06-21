@@ -34,9 +34,13 @@
         <if test='position == "generalManager" ' >
             generalManagerScore = #{score}
         </if>
-        ,monthScore=technicalDirectorScore+departmentManagerScore+generalManagerScore
+        ,monthScore=0.3*technicalDirectorScore+0.4*departmentManagerScore+0.3*generalManagerScore
         where emp_id = #{emp_id}
     </update>
+
+    <select id="queryEvaluationByEmpId" resultType="double">
+        select monthScore from employeemanage.evaluation where emp_id=#{emp_id}
+    </select>
 
 
 
