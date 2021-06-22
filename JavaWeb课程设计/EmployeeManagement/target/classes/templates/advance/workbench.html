@@ -317,6 +317,7 @@
                                                                 <input class="input-sm form-control" name="endTime" th:value="${#dates.format(#dates.createNow(),'yyyy/MM/dd')}" />
                                                             </div>
                                                         </div>
+
                                                         <div class="form-group">
                                                             <strong>详情</strong>
                                                             <textarea id="details" name="details" class="form-control" style="min-width: 90%"></textarea>
@@ -358,6 +359,7 @@
                                         <tr>
                                             <th>任务ID</th>
                                             <th>任务名称</th>
+                                            <th>项目名称</th>
                                             <th>负责人</th>
                                             <th>部门</th>
                                             <th>是否完成</th>
@@ -386,35 +388,40 @@
     <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
     <!-- Data picker -->
-    <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
-    <script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
-    <!-- JSKnob -->
-    <!--<script th:src="@{/js/plugins/jsKnob/jquery.knob.js}"></script>-->
+    <script charset="UTF-8" th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}" ></script>
 
-    <!-- IonRangeSlider -->
-    <!--<script th:src="@{/js/plugins/ionRangeSlider/ion.rangeSlider.min.js}"></script>-->
 
     <!--Plugin CSS file with desired skin-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
 
-    <!--jQuery-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <!--Plugin JavaScript file-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 
+    <!--jQuery-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <!-- JSKnob -->
+    <!--<script th:src="@{/js/plugins/jsKnob/jquery.knob.js}"></script>-->
+    <!-- IonRangeSlider -->
+    <!--<script th:src="@{/js/plugins/ionRangeSlider/ion.rangeSlider.min.js}"></script>-->
+    <!-- Date range picker -->
+    <!--<script th:src="@{/js/plugins/daterangepicker/daterangepicker.js}"></script>-->
+    <!--<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>-->
 
     <script>
         $(document).ready(function() {
             $('#deadLine .input-daterange').datepicker({
+                language: "zh-CN",
                 keyboardNavigation: false,
                 forceParse: false,
                 autoclose: true,
-                format: "yyyy/mm/dd"
+                format: 'yyyy/mm/dd'
             });
 
-            $('#editable').DataTable();
+
+            // $('#editable').DataTable();
         });
+
+
 
         var $progressRate = $("#progressRate");
         $progressRate.ionRangeSlider({

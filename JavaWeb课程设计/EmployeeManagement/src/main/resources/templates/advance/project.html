@@ -108,29 +108,54 @@
                         </div>
 
                         <div class="table-responsive">
+
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <td><strong>#</strong></td>
-                                    <td><strong>员工号</strong></td>
-                                    <td><strong>员工姓名</strong></td>
-                                    <td><strong>部门</strong></td>
-                                    <td><strong>职位</strong></td>
-                                    <td><strong>操作</strong></td>
+                                    <th><strong> </strong></th>
+                                    <th><strong>项目号</strong></th>
+                                    <th><strong>项目名称</strong></th>
+                                    <th><strong>操作</strong></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="emp,empState:${emps}">
-                                    <td th:text="${empState.count}"></td>
-                                    <td th:text="${emp.getEmp_id()}"></td>
-                                    <td th:text="${emp.getEmp_name()}"></td>
-                                    <td th:text="${emp.getDepartment().getName()}"></td>
-                                    <td th:text="${emp.getPosition().getPosition_name()}"></td>
+                                <tr th:each="project:${projects}">
+                                    <td> </td>
+                                    <td th:text="${project.getP_id()}"></td>
+                                    <td th:text="${project.getP_name()}"></td>
                                     <td><button type="button" th:onclick="openUpdateModal(this)" class="btn btn-warning" data-toggle="modal" data-target="#updateModal">修改</button>&nbsp;
                                         <button type="button" th:onclick="openDeleteModal(this)" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">删除</button></td>
                                 </tr>
                                 </tbody>
                             </table>
+                            <div class="">
+                                <a class="btn btn-primary col-lg-12"
+                                   data-toggle="modal" data-target="#addProject">Add a new project</a>
+                            </div>
+                            <!--模态框 addTask-->
+                            <div class="modal inmodal" id="addProject" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated fadeIn">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <i class="fa fa-plus-circle modal-icon"></i>
+                                            <h4 class="modal-title" >addProject</h4>
+                                        </div>
+                                        <form role="form" th:action="@{/advance/addProject}" method="post">
+                                            <div class="modal-body" >
+                                                <div class="form-group">
+                                                    <strong>项目名称</strong>
+                                                    <input id="addProjectName" type="text" name="p_name" class="form-control" required=""/>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">add</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             <!--模态框 updateModal-->
                             <div class="modal inmodal" id="updateModal" tabindex="-1" role="dialog"  aria-hidden="true">
                                 <div class="modal-dialog">
@@ -141,23 +166,13 @@
                                             <h4 class="modal-title">UPDATE</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form role="form" th:action="@{/admin/updateEmployee}" method="post">
+                                            <form role="form" th:action="@{/advance/updateProject}" method="post">
                                                 <div class="form-group">
-                                                    <input id="hiddenEmpId" name="emp_id" type="hidden" />
-                                                    员工Id：<input id="empId" class="form-control" type="text" disabled="disabled"/>
+                                                    <input id="hiddenProjectId" name="p_id" type="hidden" />
+                                                    项目Id：<input id="projectId" class="form-control" type="text" disabled="disabled"/>
                                                 </div>
                                                 <div class="form-group">
-                                                    员工姓名：<input id="empName" name="emp_name" class="form-control" type="text" />
-                                                </div>
-                                                <div class="form-group">
-                                                    员工部门：<select class="form-control m-b" name="department.id" >
-                                                    <option id="empDept" th:each="department:${departments}" th:value="${department.getId()}" th:text="${department.getName()}"></option>
-                                                </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    员工职位：<select class="form-control m-b" name="position.position_id">
-                                                    <option id="empPosition" th:each="position:${positions}" th:value="${position.getPosition_id()}" th:text="${position.getPosition_name()}"></option>
-                                                </select>
+                                                    项目名称：<input id="projectName" name="p_name" class="form-control" type="text" />
                                                 </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
@@ -178,11 +193,11 @@
                                             <i class="fa fa-trash-o modal-icon"></i>
                                             <h4 class="modal-title" style="color: red">DELETE</h4>
                                         </div>
-                                        <form role="form" th:action="@{/admin/deleteEmployee}" method="post">
+                                        <form role="form" th:action="@{/advance/deleteProject}" method="post">
                                             <div class="modal-body" >
                                                 <h2><strong>确定要删除吗？</strong></h2>
                                                 <div class="form-group">
-                                                    <input id="deleteEmpId" type="hidden" name="emp_id"/>
+                                                    <input id="deleteProjectId" type="hidden" name="p_id"/>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -225,19 +240,19 @@
     function openUpdateModal(obj) {
 
         var $td = $(obj).parents('tr').children('td');
-        var empId = $td.eq(1).text();
-        var empName = $td.eq(2).text();
+        var projectId = $td.eq(1).text();
+        var projectName = $td.eq(2).text();
 
-        $("#empId").val(empId);
-        $("#hiddenEmpId").val(empId);
-        $("#empName").val(empName);
+        $("#projectId").val(projectId);
+        $("#hiddenProjectId").val(projectId);
+        $("#projectName").val(projectName);
     }
 
     //打开删除模态框
     function openDeleteModal(obj) {
         var $td = $(obj).parents('tr').children('td');
-        var empId = $td.eq(1).text().trim();
-        $("#deleteEmpId").val(empId);
+        var projectId = $td.eq(1).text().trim();
+        $("#deleteProjectId").val(projectId);
     }
 </script>
 

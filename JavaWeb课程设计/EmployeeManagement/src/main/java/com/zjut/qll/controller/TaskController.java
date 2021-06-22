@@ -68,27 +68,30 @@ public class TaskController {
             System.out.println(calendar.get(Calendar.MONTH));
             System.out.println(evaluation.getMonthScore());
         }
-        List<Double> yearScore = new ArrayList<>(12);
+
         //构造一整年的评价分数
-        for (int i = 0; i < 12; i++) {
-            yearScore.add(i,0.0);
+        Double[] yearScore = new Double[12];
+        for (int i = 0; i < yearScore.length; i++) {
+            yearScore[i] = 0.0;
         }
         for (Evaluation evaluation : currentYearEvaluation) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(evaluation.getEva_time());
-            yearScore.add(calendar.get(Calendar.MONTH),evaluation.getMonthScore());
+            yearScore[calendar.get(Calendar.MONTH)] = evaluation.getMonthScore();
         }
-        for (Double y : yearScore) {
-            System.out.println(y);
+
+        for (Double aDouble : yearScore) {
+            System.out.println(aDouble);
         }
+
         model.addAttribute("yearScore",yearScore);
-        model.addAttribute("best",max(yearScore));
-        model.addAttribute("worst",min(yearScore));
+        model.addAttribute("best",Collections.max(Arrays.asList(yearScore)));
+        model.addAttribute("worst",Collections.min(Arrays.asList(yearScore)));
         //季度分数
         double[] quarterlyScore = new double[12];
-        for (int i = 0; i < yearScore.size(); i++) {
+        for (int i = 0; i < yearScore.length; i++) {
             if((i+1)%3==0) {
-                quarterlyScore[i] = (yearScore.get(i-1)+yearScore.get(i-2)+yearScore.get(i))/3;
+                quarterlyScore[i] = (yearScore[i-1]+yearScore[i-2]+yearScore[i])/3;
                 quarterlyScore[i-2] = quarterlyScore[i-1] = quarterlyScore[i] ;
             }
         }

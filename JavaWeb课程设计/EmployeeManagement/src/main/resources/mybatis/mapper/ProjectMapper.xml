@@ -8,5 +8,18 @@
         select * from employeemanage.project
     </select>
 
+    <update id="updateProject" parameterType="Project">
+        update employeemanage.project set p_name = #{project.p_name}
+        where p_id = #{project.p_id}
+    </update>
+
+    <insert id="insertProject" parameterType="Project">
+        insert employeemanage.project (p_name) values (#{project.p_name})
+    </insert>
+
+    <delete id="deleteProject" parameterType="Project">
+        delete from employeemanage.project where p_id = #{project.p_id}
+    </delete>
+
 
 </mapper>
