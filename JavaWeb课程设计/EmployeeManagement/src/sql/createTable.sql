@@ -3,7 +3,7 @@ use employeemanage;
 # 部门表
 create TABLE if not exists `department`(
   `id` int(4) NOT NULL AUTO_increment,
-  `dept_name` VARCHAR(30) not null,
+  `name` VARCHAR(30) not null,
   PRIMARY key(id)
 )ENGINE = INNODB DEFAULT charset =utf8;
 

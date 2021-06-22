@@ -351,8 +351,8 @@
                                             <td th:text="${task.getTask().getProject().getP_name()}"></td>
                                             <td th:text="${task.getEmployee().getEmp_name()}"></td>
                                             <td th:text="${task.getEmployee().getDepartment().getName()}"></td>
-                                            <td th:if="${task.getIsAccomplish()}"><a th:href="@{/user/task}"><i class="fa fa-check text-navy"></i></a></td>
-                                            <td th:unless="${task.getIsAccomplish()}"><a th:href="@{/user/task}"><i class="fa fa-times text-navy"></i></a></td>
+                                            <td th:if="${task.getIsAccomplish()}"><a><i class="fa fa-check text-navy"></i></a></td>
+                                            <td th:unless="${task.getIsAccomplish()}"><a><i class="fa fa-times text-navy"></i></a></td>
                                         </tr>
                                         </tbody>
                                         <tfoot>

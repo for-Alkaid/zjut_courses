@@ -40,22 +40,20 @@
                                 <div class="ibox-content">
 
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
+                                            <!--模糊查询待完成-->
+                                            <form role="form" th:action="@{/user/search/project}" method="post">
                                             <div class="form-group">
                                                 <label class="control-label" for="product_name">Project Name</label>
                                                 <input type="text" id="product_name" name="product_name" value="" placeholder="Project Name" class="form-control">
                                             </div>
+                                            </form>
                                         </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="price">Name</label>
-                                                <input type="text" id="price" name="price" value="" placeholder="Name" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
+
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label class="control-label" for="quantity">Task</label>
-                                                <input type="text" id="quantity" name="quantity" value="" placeholder="Company" class="form-control">
+                                                <input type="text" id="quantity" name="quantity" value="" placeholder="Task" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -152,6 +150,7 @@
                                 </h4>
                             </div>
                             <div th:each="qs:${quarterlyScore}">
+                                <!--季度数据-->
                                 <input type="hidden" name="quarterlyScore" id="quarterlyScore" th:value="${qs}" />
                             </div>
                             <div th:each="ys:${yearScore}">
@@ -230,7 +229,7 @@
                 gauge: {
                    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
                    max: 100, // 100 is default
-                   units: ' ',
+                   units: "",
                    width: 39 // for adjusting arc thickness
                 }
 

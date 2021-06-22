@@ -108,18 +108,17 @@
                                 </tr>
                                 </tbody>
                                 <!--模态框 verifyModal-->
-                                <!--需实现-->
                                 <div class="modal inmodal" id="verifyModal" tabindex="-1" role="dialog"  aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content animated fadeIn">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                <i class="fa fa-check modal-icon"></i>
+                                                <i class="fa fa-thumbs-o-up modal-icon"></i>
                                                 <h4 class="modal-title" style="color: limegreen">ACCOMPLISH</h4>
                                             </div>
                                             <form role="form" th:action="@{/user/accomplish}" method="post">
                                                 <div class="modal-body" >
-                                                    <h2><strong>确定完成了吗？</strong></h2>
+                                                    <h2 class="text-center"><strong>确定完成了吗？</strong></h2>
                                                     <div class="form-group">
                                                         <input id="te_id" type="hidden" name="te_id"/>
                                                     </div>
