@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.time.Month;
@@ -175,6 +176,16 @@ public class TaskController {
         session.setAttribute("evaluations",evaluationMapper.queryAllEvaluations());
 
         return "redirect:/advance/workbench";
+    }
+
+
+    @RequestMapping("/user/accomplish")
+    public String accomplish(TaskToEmp taskToEmp){
+        if (taskToEmpMapper.updateAccomplish(taskToEmp)>0){
+            System.out.println("更新成功！");
+        }
+        System.out.println(taskToEmp);
+        return "redirect:/user/task";
     }
 
 }

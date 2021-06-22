@@ -19,4 +19,6 @@ public interface TaskToEmpMapper {
 
     int insertTaskToEmp(Map map);
 
+    int updateAccomplish(@Param("taskToEmp") TaskToEmp taskToEmp);
+
 }

@@ -29,7 +29,7 @@
     <!--插入员工-->
     <insert id="insertEmployee" parameterType="Employee">
         insert into employeemanage.employee (emp_id, dept_id, position_id, emp_name, password)
-        values (#{emp_id},#{dept_id},#{position_id},#{emp_name},#{password})
+        values (#{employee.emp_id},#{employee.department.id},#{employee.position.position_id},#{employee.emp_name},#{employee.password})
     </insert>
 
     <!--更新-->

@@ -48,4 +48,7 @@
         values (#{emp_id},#{task_id},#{startTime},#{endTime},#{details})
     </insert>
 
+    <update id="updateAccomplish" parameterType="TaskToEmp">
+        update employeemanage.tasktoemp set isAccomplish = 1 where te_id = #{taskToEmp.te_id}
+    </update>
 </mapper>

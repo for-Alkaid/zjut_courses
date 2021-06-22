@@ -93,6 +93,8 @@ public class EmployeeController {
     @RequestMapping("/user/register")
     public String register(Employee employee,Model model){
         List<Employee> e = employeeMapper.queryEmployees();
+        model.addAttribute("departments",departmentMapper.queryAllDepartment());
+        model.addAttribute("positions",positionMapper.queryAllPosition());
         for (Employee emp : e) {
             if(emp.getEmp_id().equals(employee.getEmp_id())){
                 model.addAttribute("msg","员工ID已存在！");
@@ -101,7 +103,7 @@ public class EmployeeController {
         }
         employee.setPassword(DigestUtils.md5DigestAsHex(employee.getPassword().getBytes()));
         if(employeeMapper.insertEmployee(employee)>0){
-            model.addAttribute("msg","注册成功！");
+            model.addAttribute("msg","注册成功！请登录！");
         }
         return "register";
     }

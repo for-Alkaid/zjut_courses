@@ -19,7 +19,7 @@ public interface EmployeeMapper {
 
     List<Employee> queryEmployees();
 
-    int insertEmployee(Employee employee);
+    int insertEmployee(@Param("employee") Employee employee);
 
     int updateEmployee(Map<String,Object> employee);
 

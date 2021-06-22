@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Register</title>
+    <title>EmployeeManagement | Register</title>
 
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
@@ -25,7 +25,7 @@
             </div>
             <h3>员工管理系注册</h3>
             <p>Create account to see it in action.</p>
-            <form class="m-t" role="form" action="/user/register" method="post">
+            <form class="m-t" role="form" th:action="@{/user/register}" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="EmployeeId" name="emp_id" required="">
                 </div>
@@ -50,6 +50,7 @@
                 <div class="form-group">
                         <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
                 </div>
+                <p th:text="${msg}" style="color: red"></p>
                 <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
                 <p class="text-muted text-center"><small>Already have an account?</small></p>
@@ -66,11 +67,14 @@
     <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
     <script>
         $(document).ready(function(){
+
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
             });
         });
+
+
     </script>
 </body>
 

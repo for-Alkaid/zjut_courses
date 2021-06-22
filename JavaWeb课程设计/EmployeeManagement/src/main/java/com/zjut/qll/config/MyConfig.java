@@ -13,6 +13,7 @@ public class MyConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/logout").setViewName("login");
+        registry.addViewController("/user/register").setViewName("register");
         registry.addViewController("/advance/index").setViewName("advance/workbench");
         registry.addViewController("/advance/workbench").setViewName("advance/workbench");
         registry.addViewController("/admin/index").setViewName("admin/index");
@@ -27,7 +28,7 @@ public class MyConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/","/login","/user/login","/css/**","/js/**",
-                                     "/img/**","/font-awesome/**","/fonts/**");
+                .excludePathPatterns("/","/login","/user/login","/user/toRegister","/user/register",
+                                     "/css/**","/js/**", "/img/**","/font-awesome/**","/fonts/**");
     }
 }

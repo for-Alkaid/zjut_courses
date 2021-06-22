@@ -69,10 +69,13 @@ th:
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form id="my-awesome-dropzone" class="dropzone" action="documents.html#">
-                            <div class="dropzone-previews"></div>
-                            <button type="submit" class="btn btn-primary pull-right">Submit this form!</button>
+                        <form id="my-awesome-dropzone" class="dropzone" th:action="@{/user/upload}" enctype="multipart/form-data">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
+                            </div>
+                            <button type="submit" class="btn btn-primary pull-right">Submit File!</button>
                         </form>
+                        <p style="color: red" th:text="${result}" th:if="${not #strings.isEmpty(result)}"></p>
                     </div>
                 </div>
             </div>

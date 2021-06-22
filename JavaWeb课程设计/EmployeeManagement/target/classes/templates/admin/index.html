@@ -211,11 +211,9 @@
 <script>
     // 打开更新模态框
     function openUpdateModal(obj) {
-
         var $td = $(obj).parents('tr').children('td');
         var empId = $td.eq(1).text();
         var empName = $td.eq(2).text();
-
         $("#empId").val(empId);
         $("#hiddenEmpId").val(empId);
         $("#empName").val(empName);
