@@ -35,7 +35,7 @@
             generalManagerScore = #{score}
         </if>
         ,monthScore=0.3*technicalDirectorScore+0.4*departmentManagerScore+0.3*generalManagerScore
-        where emp_id = #{emp_id}
+        where emp_id = #{emp_id} and MONTH(eva_time) = MONTH(current_date())
     </update>
 
     <!--可查所有评价或者一年的评价-->
